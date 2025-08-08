@@ -1,0 +1,20 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment
+.env
+venv/
+.env.*
+
+# OS-specific
+.DS_Store
+
+# Alembic / migrations cache (keep migration files but not cache)
+migrations/__pycache__/
+
+# Byte-compiled
+*.sqlite3
+bash.exe.stackdump
