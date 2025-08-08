@@ -25,7 +25,7 @@ class Settings(BaseSettings):
     MAIL_SSL_TLS:bool=False
     USE_CREDENTIALS:bool=True
     VALIDATE_CERTS:bool=True
-    DOMAIN:str
+    DOMAIN:str = "localhost"
     GROQ_API_KEY:str
     OPENAI_API_KEY:str
 
