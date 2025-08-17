@@ -53,7 +53,7 @@ class RelevanceCheck(BaseModel):
 llm = ChatGroq(model="llama3-70b-8192")
 
 async def retrieve_node(state: LegalAgentState) -> dict:
-    print("---Retrivernode---")
+    # print("---Retrivernode---")
 
     logging.debug("Running retrieve_node")
     documents = []
@@ -93,7 +93,7 @@ async def document_checker(query, document):
     return result.relevance  # will be exactly "relevant" or "not relevant"
 
 async def relevency_check(state:LegalAgentState):
-    print("---RELEVENCY CHECK---")
+    # print("---RELEVENCY CHECK---")
 
     logging.debug("relevency check called")
 
@@ -109,7 +109,7 @@ async def relevency_check(state:LegalAgentState):
             "reformed_question": query
         }
     state["attempt_count"] = state.get("attempt_count", 0) + 1
-    print( state["attempt_count"])
+    # print( state["attempt_count"])
     for doc in docs:
         check = await document_checker(query, doc.page_content)
         if check == "relevant":
@@ -167,7 +167,7 @@ async def transform_query(state:LegalAgentState):
         state (dict): Updates question key with a re-phrased question
     """
 
-    print("---TRANSFORM QUERY---")
+    # print("---TRANSFORM QUERY---")
 
     attempt_count = state.get("attempt_count", 0)
 
@@ -184,7 +184,7 @@ async def transform_query(state:LegalAgentState):
 
     # Re-write question
     better_question = await question_rewriter.ainvoke({"question": question})
-    print("this is transform query :-   ", better_question)
+    # print("this is transform query :-   ", better_question)
     state['reformed_question'] = better_question
     return {
         "reformed_question": better_question,
@@ -194,7 +194,7 @@ async def transform_query(state:LegalAgentState):
 
 
 async def websearch_relevency_check(state: LegalAgentState):
-    print("---websearch relevency check---")
+    # print("---websearch relevency check---")
     logging.debug("web search relevency check called")
 
     docs = state.get('web_documents', '')
@@ -217,7 +217,7 @@ async def websearch_relevency_check(state: LegalAgentState):
         'attempt_count': state.get("attempt_count", 0),
     }
     if check == "relevant":
-        print("relevant_web_document :-   ", docs)
+        # print("relevant_web_document :-   ", docs)
         result["__route__"]= ["relevant"]
         result['relevant_web_document'] = docs
     else: result["__route__"]= ["not relevant"]
@@ -238,7 +238,7 @@ async def web_search(state:LegalAgentState):
         state (dict): Updates documents key with appended web results
     """
 
-    print("---WEB SEARCH---")
+    # print("---WEB SEARCH---")
    
     query =  state.get("reformed_question") or state['messages'][-1].content
    
@@ -253,7 +253,7 @@ async def web_search(state:LegalAgentState):
             response += f"Title: {r['title']}\nURL: {r['href']}\nSnippet: {r['body']}\n\n"
         
         state['web_documents'] = response
-        print("this is web document: -   ", response)
+        # print("this is web document: -   ", response)
 
 
     return {'messages': state['messages'],'web_documents': response,  "attempt_count": state["attempt_count"] }
@@ -280,7 +280,7 @@ def final_answer_generator(documents):
     return system_message
 
 async def agent1(state:LegalAgentState):
-    print("----retiever relevand documents founded")
+    # print("----retiever relevand documents founded")
     documents=  state['relevant_document']
     system_message = final_answer_generator(documents)
     chat =   [SystemMessage(system_message)] + state['messages']

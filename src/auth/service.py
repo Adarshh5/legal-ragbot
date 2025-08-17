@@ -32,6 +32,12 @@ class UserService:
 
         await session.commit()
         await session.refresh(new_user)
+        usage = UserTotalTime(user_id=new_user.uid)
+        session.add(usage)
+        await session.commit()
+        await session.refresh(usage)
+
+
 
         return new_user
     
