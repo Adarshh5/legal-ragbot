@@ -57,7 +57,8 @@ async def create_user_account(
 
     token = create_url_safe_token({"email": email})
 
-    link = f"http://{Config.DOMAIN}/api/v1/auth/verify/{token}"
+    link = f"{Config.DOMAIN}/api/v1/auth/verify/{token}"
+
 
     html_message = f"""
     <h1>Verify your Email</h1>

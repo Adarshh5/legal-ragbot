@@ -8,6 +8,7 @@ from langchain_community.vectorstores import Chroma
 from langchain_community.vectorstores import Pinecone as PineconeVectorStore
 from langchain_community.document_loaders import PyPDFLoader
 from pinecone import Pinecone
+from langchain_openai import OpenAIEmbeddings
 from dotenv import load_dotenv
 import os
 
@@ -20,8 +21,7 @@ PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_NAME")
 PINECONE_REGION = os.getenv("PINECONE_REGION")
 
 # Embedding model
-embedding_model = OllamaEmbeddings(model="nomic-embed-text")
-
+embedding_model = OpenAIEmbeddings(model='text-embedding-3-small')
 # Pinecone client
 pc = Pinecone(api_key=PINECONE_API_KEY)
 
@@ -59,9 +59,8 @@ def process_document(file_path, sector_name):
     return all_chunks
 
 
-# ✅ STEP: Add new PDF
-file_path = "./data/intellectual_property_rights.pdf"
-sector_name = "Intellectual Property Rights"
+file_path = "./data/taxation.pdf"
+sector_name = "Taxation"
 
 new_chunks = process_document(file_path, sector_name)
 

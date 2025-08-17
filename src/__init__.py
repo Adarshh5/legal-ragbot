@@ -2,6 +2,7 @@ from fastapi import FastAPI, status
 from src.auth.routers import auth_router
 from src.ragbot.routers import chat_router
 from contextlib import asynccontextmanager
+from fastapi.middleware.cors import CORSMiddleware
 
 
 @asynccontextmanager
@@ -21,6 +22,15 @@ app = FastAPI(
     description="A REST API FOR RAG BASED Q&A",
     version=version,
     lifespan=lifespan,
+)
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://ml-test.shop", "http://127.0.0.1:5500"],  
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 

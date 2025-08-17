@@ -58,7 +58,7 @@ from pinecone import Pinecone, ServerlessSpec  # ✅ नए SDK से
 from dotenv import load_dotenv
 import os
 from langchain_ollama import OllamaEmbeddings
-
+from langchain_openai import OpenAIEmbeddings
 
 load_dotenv()
 
@@ -71,7 +71,7 @@ pc = Pinecone(api_key=PINECONE_API_KEY)
 
 # ✅ अगर index नहीं बना है तो नया बनाओ:
 existing_indexes = [index['name'] for index in pc.list_indexes()]
-print("अगर index नहीं बना है तो नया बनाओ:")
+
 if PINECONE_INDEX_NAME not in existing_indexes:
     pc.create_index(
         name=PINECONE_INDEX_NAME,
@@ -82,8 +82,8 @@ if PINECONE_INDEX_NAME not in existing_indexes:
             region=PINECONE_REGION
         )
     )
-print("तुम्हारे index का dimension 768 है (llama-text-embed-v2 से)")
-embedding_model = OllamaEmbeddings(model='nomic-embed-text')
+
+embedding_model = OpenAIEmbeddings(model='text-embedding-3-small')
 
 splitter = RecursiveCharacterTextSplitter(
     chunk_size=1000,
@@ -96,10 +96,10 @@ sector_files = {
     "Criminal Law": "criminal_law.pdf",
     "Property & Land Disputes": "property_land.pdf",
     "Family Law": "family_law.pdf",
-    "Labor & Employment": "labor_employment.pdf",
+    # "Labor & Employment": "labor_employment.pdf",
     "Consumer Protection": "consumer_protection.pdf",
     "Environmental Law": "environmental_law.pdf",
-    "Taxation": "taxation.pdf",
+    # "Taxation": "taxation.pdf",
     "Cyber Crimes": "cyber_crimes.pdf"
 }
 

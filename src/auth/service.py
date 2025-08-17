@@ -33,13 +33,6 @@ class UserService:
         await session.commit()
         await session.refresh(new_user)
 
-
-
-        user_total_time = UserCreateModel(user_id=new_user.uid)
-        session.add(user_total_time)
-        await session.commit()
-        await session.refresh(user_total_time)
-
         return new_user
     
     async def update_user(self,user:User, user_data:dict, session:AsyncSession):

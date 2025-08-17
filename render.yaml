@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: fastapi-backend
+    env: docker
+    plan: free
+    branch: main
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: ENV
+        value: production

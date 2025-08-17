@@ -11,7 +11,7 @@ from langchain_core.tools import tool
 from langchain_openai import OpenAIEmbeddings
 from dotenv import load_dotenv
 from langchain_groq import ChatGroq
-from langchain.prompts.chat import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
+from langchain.prompts.chat import ChatPromptTemplate, HumanMessagePromptTemplate
 from langchain.vectorstores import Chroma
 from langchain_community.vectorstores import Pinecone as PineconeVectorStore
 from pinecone import Pinecone
@@ -33,8 +33,8 @@ model = ChatGroq(model="llama3-70b-8192")
 # BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # VECTOR_DB_PATH = os.path.join(BASE_DIR, "./vector_db")
 
-embedding_model = OllamaEmbeddings(model='nomic-embed-text')
 
+embedding_model = OpenAIEmbeddings(model='text-embedding-3-small')
 
 pc = Pinecone(api_key=PINECONE_API_KEY)
 #vectorstore = Chroma(
@@ -48,7 +48,7 @@ vectorstore = PineconeVectorStore.from_existing_index(
 )
 
 
-retriever = vectorstore.as_retriever(search_kwargs={"k": 2})  # only top 1 chunk
+retriever = vectorstore.as_retriever(search_kwargs={"k": 1})  # only top 1 chunk
  
 
 @tool
