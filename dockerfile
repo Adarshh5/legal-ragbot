@@ -24,7 +24,7 @@ ENV PORT=8080
 
 # Use gunicorn with uvicorn worker for production
 # Set workers=1 for small memory. Adjust if you want more.
-CMD exec gunicorn -k uvicorn.workers.UvicornWorker src:app \
+CMD exec gunicorn -k uvicorn.workers.UvicornWorker src.main:app \
   --bind :$PORT \
   --workers 1 \
   --timeout 120

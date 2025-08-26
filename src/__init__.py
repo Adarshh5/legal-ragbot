@@ -4,7 +4,6 @@ from src.ragbot.routers import chat_router
 from contextlib import asynccontextmanager
 from fastapi.middleware.cors import CORSMiddleware
 
-
 @asynccontextmanager
 
 async def lifespan(app: FastAPI):
