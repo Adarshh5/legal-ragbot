@@ -1,7 +1,7 @@
 name: CI/CD — Build & Deploy to Cloud Run
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 permissions:
   contents: read
