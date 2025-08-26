@@ -18,3 +18,5 @@ migrations/__pycache__/
 # Byte-compiled
 *.sqlite3
 bash.exe.stackdump
+
+render.yaml

@@ -16,7 +16,9 @@ from sqlalchemy import UUID as SA_UUID  # Not PG_UUID
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+
     from src.auth.models import User
+    
 class UserTotalTime(SQLModel, table=True):
     model_config = {"arbitrary_types_allowed": True}
 

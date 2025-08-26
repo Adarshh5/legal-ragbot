@@ -8,3 +8,4 @@ venv/
 .gitignore
 .DS_Store
 bash.exe.stackdump
+render.yaml
