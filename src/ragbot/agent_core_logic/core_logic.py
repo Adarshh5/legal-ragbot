@@ -1,23 +1,19 @@
-from typing import List
-from typing_extensions import TypedDict
+
+
 import os
 
 from dotenv import load_dotenv
-from typing import Annotated, Sequence, Literal, Optional
+from typing import  Literal
 
-from langchain_core.messages import BaseMessage, AIMessage
+from langchain_core.messages import  AIMessage
 
-from langgraph.graph.message import add_messages
-
-from pydantic import BaseModel, model_validator, field_validator
 
 from langgraph.graph import END, StateGraph, START
 
-from langgraph.prebuilt import ToolNode, tools_condition
 import logging
 from .agent_tools import tools
 from .agent_node import agent, relevency_check, transform_query, web_search, websearch_relevency_check, retrieve_node, agent1, agent2, agent3, add_ai_message
-from langchain_core.documents import Document
+
 from .state import LegalAgentState, AgentOutput
 load_dotenv()
 

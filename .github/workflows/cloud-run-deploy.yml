@@ -25,21 +25,21 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT }}
 
       - name: Configure Docker
-        run: gcloud auth configure-docker asia-south1-docker.pkg.dev
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
       - name: Build and push container image (Artifact Registry)
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: asia-south1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/my-repo/legalbot:${{ github.sha }}
+          tags: us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/my-repo/legalbot:${{ github.sha }}
 
       - name: Deploy to Cloud Run
         id: deploy
         uses: google-github-actions/deploy-cloudrun@v2
         with:
           service: legalbot
-          image: asia-south1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/my-repo/legalbot:${{ github.sha }}
+          image: us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/my-repo/legalbot:${{ github.sha }}
           region: ${{ secrets.GCP_REGION }}
           project_id: ${{ secrets.GCP_PROJECT }}
           env_vars: |
@@ -62,4 +62,10 @@ jobs:
             REDIS_HOST=${{ secrets.REDIS_HOST }}
             REDIS_URL=${{ secrets.REDIS_URL }}
             REDIS_PORT=${{ secrets.REDIS_PORT }}
+            JWT_ALGORITHM=${{ secrets.JWT_ALGORITHM }}
+            PINECONE_API_KEY=${{ secrets.PINECONE_API_KEY }}
+            PINECONE_INDEX_NAME=${{ secrets.PINECONE_INDEX_NAME }}
+            PINECONE_REGION=${{ secrets.PINECONE_REGION }}
+
+
           flags: '--memory=512Mi --cpu=1 --allow-unauthenticated --cpu-throttling'
