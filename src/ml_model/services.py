@@ -37,7 +37,7 @@ def load_model_from_gcp(model_name: str):
     return model
 
 class HeartDiseaseService:
-    MODEL_PATH = "heart_pipeline.cloudpickle"
+    MODEL_PATH = "heart_pipeline.joblib"
 
     def __init__(self):
         self.model = load_model_from_gcp(self.MODEL_PATH)
@@ -49,7 +49,7 @@ class HeartDiseaseService:
       
         df["ExerciseAngina"] = df["ExerciseAngina"].map({"N": 0, "Y": 1})
 
-      
+        print(df)
         prediction = self.model.predict(df)[0]
 
         # Model may require DataFrame or numpy array

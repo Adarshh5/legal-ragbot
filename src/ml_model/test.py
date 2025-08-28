@@ -2,9 +2,11 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
-from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, FunctionTransformer, StandardScaler
+from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler
 from xgboost import XGBClassifier
-import joblib
+from skl2onnx import convert_sklearn
+from skl2onnx.common.data_types import FloatTensorType
+import onnx
 
 
 # ----------------------------
@@ -48,8 +50,12 @@ final_pipeline = Pipeline(steps=[
 # Split and train
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 final_pipeline.fit(X_train, y_train)
+# ✅ Convert to ONNX
+initial_type = [("float_input", FloatTensorType([None, X_train.shape[1]]))]
+onnx_model = convert_sklearn(final_pipeline, initial_types=initial_type)
 
 
-# ----------------------------
-joblib.dump(final_pipeline, 'heart_pipeline.joblib')
-print("✅ Model pipeline saved as heart_pipeline.joblib")
+with open("heart_pipeline.onnx", "wb") as f:
+    f.write(onnx_model.SerializeToString())
+
+print("✅ Model pipeline saved as heart_pipeline.onnx")
