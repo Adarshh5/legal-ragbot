@@ -6,8 +6,12 @@ import pandas as pd
 import onnxruntime as ort
 import numpy as np
 from PIL import Image
+import os
+import tempfile
+import onnxruntime as ort
+from google.cloud import storage
 import io
-
+from src.config import Config
 
 
 class HeartDiseaseService:
@@ -44,26 +48,19 @@ class HeartDiseaseService:
 
 
 
-import os
-import tempfile
-import numpy as np
-import onnxruntime as ort
-from google.cloud import storage
-from PIL import Image
-import io
-from src.config import Config
-MODEL_CACHE = {}
+
+DL_MODEL_CACHE = {}
 
 class CNNImageService:
     MODEL_NAME = "resnet18_model_EfficientNet_intel_dataset.onnx"
     CLASS_LABELS = ['buildings', 'forest', 'glacier', 'mountain', 'sea', 'street']
 
     def __init__(self):
-        if self.MODEL_NAME in MODEL_CACHE:
-            self.session = MODEL_CACHE[self.MODEL_NAME]
+        if self.MODEL_NAME in DL_MODEL_CACHE:
+            self.session = DL_MODEL_CACHE[self.MODEL_NAME]
         else:
             self.session = self._load_model_from_gcp()
-            MODEL_CACHE[self.MODEL_NAME] = self.session
+            DL_MODEL_CACHE[self.MODEL_NAME] = self.session
 
         self.input_name = self.session.get_inputs()[0].name
         self.output_name = self.session.get_outputs()[0].name
