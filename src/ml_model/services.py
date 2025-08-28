@@ -12,7 +12,7 @@ from google.cloud import storage
 import io
 from src.config import Config
 import tempfile
-import cloudpickle
+import joblib
 from google.cloud import storage
 
 MODEL_CACHE = {}
@@ -31,7 +31,7 @@ def load_model_from_gcp(model_name: str):
 
     blob.download_to_filename(local_path)
 
-    with open(local_path, "rb") as f: model = cloudpickle.load(f)
+    model = joblib.load(local_path)
 
     MODEL_CACHE[model_name] = model
     return model
@@ -43,10 +43,13 @@ class HeartDiseaseService:
         self.model = load_model_from_gcp(self.MODEL_PATH)
 
     def predict(self, data: HeartDiseaseInput) -> HeartDiseasePrediction:
-        # Convert input to numpy / dataframe (depending on pipeline)
+        print(data)
+   
         df = pd.DataFrame([data.dict()])   # ✅ column names preserved
+      
+        df["ExerciseAngina"] = df["ExerciseAngina"].map({"N": 0, "Y": 1})
 
-        # Run prediction
+      
         prediction = self.model.predict(df)[0]
 
         # Model may require DataFrame or numpy array
