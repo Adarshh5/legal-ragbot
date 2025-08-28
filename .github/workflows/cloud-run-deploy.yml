@@ -44,6 +44,7 @@ jobs:
           image: us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/my-repo/legalbot:${{ github.sha }}
           region: ${{ secrets.GCP_REGION }}
           project_id: ${{ secrets.GCP_PROJECT }}
+      
           env_vars: |
             DATABASE_URL=${{ secrets.DATABASE_URL }}
             JWT_SECRET=${{ secrets.JWT_SECRET }}
@@ -68,6 +69,7 @@ jobs:
             PINECONE_API_KEY=${{ secrets.PINECONE_API_KEY }}
             PINECONE_INDEX_NAME=${{ secrets.PINECONE_INDEX_NAME }}
             PINECONE_REGION=${{ secrets.PINECONE_REGION }}
+          
 
 
           flags: '--memory=512Mi --cpu=1 --allow-unauthenticated --cpu-throttling'

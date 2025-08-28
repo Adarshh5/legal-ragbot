@@ -28,6 +28,9 @@ class Settings(BaseSettings):
     DOMAIN:str = "localhost"
     GROQ_API_KEY:str
     OPENAI_API_KEY:str
+    GS_BUCKET_NAME:str
+    GOOGLE_APPLICATION_CREDENTIALS:str| None = None
+
 
 
 

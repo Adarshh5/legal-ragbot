@@ -1,6 +1,7 @@
 from fastapi import FastAPI, status
 from src.auth.routers import auth_router
 from src.ragbot.routers import chat_router
+from src.ml_model.routers import ml_router
 from contextlib import asynccontextmanager
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -36,3 +37,4 @@ app.add_middleware(
 app.include_router(auth_router, prefix=f"/api/{version}/auth", tags=['auth'])
 
 app.include_router(chat_router, prefix=f"/api/{version}/chatbot", tags=["chatbot"])
+app.include_router(ml_router, prefix=f"/api/{version}/ml", tags=["predict"])

@@ -9,3 +9,5 @@ venv/
 .DS_Store
 bash.exe.stackdump
 render.yaml
+
+Key.json
