@@ -27,7 +27,7 @@ async def predict_heart(data: HeartDiseaseInput):
 router = APIRouter()
 cnn_service = CNNImageService()
 
-@ml_router.post("/predict-cnn")
+@ml_router.post("/predict-cnn",dependencies=[Depends(access_token_bearer)] )
 async def predict_cnn(file: UploadFile = File(...)):
     image_bytes = await file.read()
     result = cnn_service.predict(image_bytes)
