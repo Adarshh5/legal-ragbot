@@ -119,16 +119,16 @@ async def login_user(login_data:UserLoggingModel, session: AsyncSession = Depend
     if user is not None:
         password_valid = verify_password(password, user.password_hash)
 
-    if password_valid:
-        access_token = create_access_token(
-            user_data={"email": user.email, "user_uid": str(user.uid), "role": user.role}
-        )
+        if password_valid:
+            access_token = create_access_token(
+                user_data={"email": user.email, "user_uid": str(user.uid), "role": user.role}
+            )
 
-        refresh_token = create_access_token(
-            user_data={"email": user.email, "user_uid": str(user.uid)},
-            refresh=True,
-            expiry=timedelta(days=REFRESH_TOKEN_EXPIRY),
-        )
+            refresh_token = create_access_token(
+                user_data={"email": user.email, "user_uid": str(user.uid)},
+                refresh=True,
+                expiry=timedelta(days=REFRESH_TOKEN_EXPIRY),
+            )
 
         return JSONResponse(
                     content={

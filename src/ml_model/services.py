@@ -27,7 +27,8 @@ def load_model_from_gcp(model_name: str):
 
     # Use system temp dir (works on Windows, Linux, Cloud Run)
     tmp_dir = tempfile.gettempdir()
-    local_path = os.path.join(tmp_dir, model_name.split("/")[-1])
+    # local_path = os.path.join(tmp_dir, model_name.split("/")[-1])
+    local_path = os.path.join(tmp_dir, model_name)
 
     blob.download_to_filename(local_path)
 

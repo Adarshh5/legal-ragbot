@@ -12,7 +12,9 @@ from langgraph.graph import END, StateGraph, START
 
 import logging
 from .agent_tools import tools
-from .agent_node import agent, relevency_check, transform_query, web_search, websearch_relevency_check, retrieve_node, agent1, agent2, agent3, add_ai_message
+from .agent_node import (agent, relevency_check, transform_query, 
+     web_search, websearch_relevency_check, retrieve_node, 
+     agent1, agent2, agent3, add_ai_message)
 
 from .state import LegalAgentState, AgentOutput
 load_dotenv()
@@ -65,7 +67,7 @@ workflow.add_conditional_edges(
     "agent",
     route_condition,
     {
-        # Translate the condition outputs to nodes in our graph
+       
         "retrieve": "retrieve",
         "web_search":"web_search",
         END: "add_ai_message",

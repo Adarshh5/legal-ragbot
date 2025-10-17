@@ -273,9 +273,9 @@ def final_answer_generator(documents):
 
     **Critical Rules**:  
     1. Strictly legal queries only:  
-    - Non-legal: "मैं कानूनी सलाह नहीं दे सकता" / "I only handle legal topics"  
+    - Non-legal: "I cannot give legal advice" / "I only handle legal topics"  
 
-    2. Always add: "व्यक्तिगत मामलों के लिए वकील से सलाह लें" / "Consult an advocate for personal cases"  """
+    2. Always add: "Consult an advocate for personal cases"  """
 
     return system_message
 
@@ -316,9 +316,9 @@ def final_answer_generator_without_document():
 
     **Critical Rules**:  
     1. Strictly legal queries only:  
-    - Non-legal: "मैं कानूनी सलाह नहीं दे सकता" / "I only handle legal topics"  
+    - Non-legal: "I cannot give legal advice" / "I only handle legal topics"  
 
-    2. Always add: "व्यक्तिगत मामलों के लिए वकील से सलाह लें" / "Consult an advocate for personal cases"  """
+    2. Always add: "Consult an advocate for personal cases"  """
 
     return system_message
 
